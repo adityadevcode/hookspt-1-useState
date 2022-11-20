@@ -70,35 +70,47 @@
     // https://www.smashingmagazine.com/2021/11/useful-react-hooks/
 
     //we can set state for arrays and objects
-    import {useState} from 'react';
+    // import {useState} from 'react';
 
-    const Usestate = () => {
-      //initialize our array nd obj states
-      const [arr, setArr] = useState ([2,4])
-      const [obj, setObj] = useState({num:1, name:'Desmond'})
+    // const Usestate = () => {
+    //   //initialize our array nd obj states
+    //   const [arr, setArr] = useState ([2,4])
+    //   const [obj, setObj] = useState({num:1, name:'Desmond'})
 
-      // //set array to the new array values
-      const handleArrClick =() => {
-        const newArr = [1,5,7]
-        setArr([...arr, ...newArr])
-      }
+    //   // //set array to the new array values
+    //   const handleArrClick =() => {
+    //     const newArr = [1,5,7]
+    //     setArr([...arr, ...newArr])
+    //   }
        
-      //set obj to the new object values
-       const handleObjClick = () => {
-        const newObj ={name: "sam", age:25}
-        setObj({...obj, ...newObj})
-       }
+    //   //set obj to the new object values
+    //    const handleObjClick = () => {
+    //     const newObj ={name: "sam", age:25}
+    //     setObj({...obj, ...newObj})
+    //    }
 
-       return(
-        <div>
-          <h2>{arr}</h2>
-          {console.log(arr)}
-          <h2>{obj}</h2> 
-          console.log(obj);
-          <button onClick={handleArrClick}>SetArrayState</button>
-          <button onClick={handleObjClick}>SetObjectState</button>
-        </div>
-       )
+    //    return(
+    //     <div>
+    //       <h2>{arr}</h2>
+    //       {console.log(arr)}
+    //       <h2>{obj}</h2> 
+    //       console.log(obj);
+    //       <button onClick={handleArrClick}>SetArrayState</button>
+    //       <button onClick={handleObjClick}>SetObjectState</button>
+    //     </div>
+    //    )
+    // }
+
+    // export default Usestate;
+
+    import React from 'react'
+    
+     function Usestate() {
+      return (
+        <>
+        <h2>Usestate</h2>
+        </>
+      )
     }
-
+    
     export default Usestate;
