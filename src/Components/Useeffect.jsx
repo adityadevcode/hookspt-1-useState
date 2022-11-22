@@ -14,6 +14,8 @@
 // This hook uses an array of "dependencies": variables or states that useEffect listen to for changes.
 // When their values change, the main body of the useEffect hook is executed.
 
+// const { renderIntoDocument } = require("react-dom/test-utils")
+
 // import { getValue } from "@testing-library/user-event/dist/utils"
 
 // useEffect(() => {
@@ -30,28 +32,217 @@
 
 // **************************************
 
-import {useState, useEffect} from 'react';
+// import {useState, useEffect} from 'react';
 
-const Useeffect = () => {
-const [count,setCount]= useState(0)
-useEffect(()=>{
-    console.log(count)
-})
+// const Useeffect = () => {
+// const [count,setCount]= useState(0)
+// useEffect(()=>{
+//     console.log(count)
+// })
 
-return(
-    <>
-    ....
-    </>
-)
+// return(
+//     <>
+//     ....
+//     </>
+// )
+// }
+// export default Useeffect;
+//we simply logged count in the useeffect, this will run after every render of the component
+
+// we may want to run the hook once (on the mount) in our component.
+// we can achieve this by providing a second parameter to useeffect
+
+// ****************************************************
+// import {useState, useEffect} from 'react';
+// const Useeffect = () => {
+//     const [count, setCount] = useState(0);
+
+//     useEffect(()=> {
+//         setCount(count + 5)
+//     },[])
+
+//     // useEffect has 2 params, first params is the function {},second params is array of dependencies
+//     //if the second param is not provided the hook will run continously
+//     //passing empty square bracket to the hook as second param, we instruct react to run the useeffect hook only once on the mount
+//     return(
+//         <>
+//         <h1>{count}</h1>
+//         <h3>Useeffect example</h3>
+//         </>
+//     )
+//     }
+
+//     export default Useeffect;
+
+// ************************************
+//We could also make our side effect run whenever some dependent values change
+// This can be done by passing these values in the list of dependencies.
+// For instance, we could make the useEffect to run whenever count changes as follows.
+
+// import {useState, useEffect} from 'react';
+
+// const Useeffect = () => {
+// const [count, setCount] = useState(0);
+
+// useEffect(() => {
+// console.log(count);
+// }, [count]);
+// // useeffect to run whenever cunt changes as follow
+// // useffect will render when setcount changes
+
+// // useEffect(() => {
+// //     console.log(count);
+// // }, []);
+// // we instruct react to run use effect only once
+// // in console only once comp is render then it will not run
+
+
+// return (
+//     <div>
+//         <h3>{count}</h3>
+//         {/* <h3>{setCount}</h3> */}
+//         <button onClick={()=> setCount(count + 5 )}>Increment</button>
+//     </div>
+// );
+// };
+
+// export default Useeffect;
+
+//*********************************** */
+// useeffect will run when either of these two conditions is first = (second) => {third}
+// 0nmount-after the component is rendered
+// when the value of count changes
+
+// On mount, the console.log expression will run and log count to 0. Once the count is updated,
+//  the second condition is met, so the useEffect runs again, this will continue whenever the button is clicked.
+
+// Once we provide the second argument to useEffect, it is expected that we pass all the dependencies to it.
+
+// import React from 'react'
+// import {useState, useEffect} from 'react';
+
+// function Useeffect() {
+//     const [count, setCount] = useState(0);
+//     useEffect (()=> {
+//         console.log('mounted');
+//     })
+//   return (
+//     <>
+//     <p>Useeffect</p>
+
+//     </>
+//   )
+// }
+
+// export default Useeffect
+
+//*************************
+ 
+// FETCHING AND REFETCHING DATA WITH useEffect #
+// One of the commonest use cases of the useEffect hook is fetching and prefetching data from an API.
+
+// To illustrate this, we’ll use fake user data I created from JSONPlaceholder to fetch data with the useEffect hook.
+// import {useEffect, useState} from "react";
+// import axios from "axios";
+
+// function Useeffect() {
+//     // created a users state using useState hook
+//     const [users, setUsers] =useState([]);
+//     const endPoint =
+//     "https://my-json-server.typicode.com/ifeanyidike/jsondata/users";
+
+// useEffect(() => {
+//     const fetchUsers = async () => {
+//         // this is async process, we used async/await function
+//         const {data}= await axios.get (endPoint);
+//         setUsers(data);
+//         console.log(data);
+//         // console.log(setUsers);
+//     };
+//     fetchUsers();
+// }, []);
+// // empty param hook it will called just once when components mounts
+
+// return (
+//     <>
+//     {users.map((user) => (
+//         // map creates a new array from calling a function for every array element
+//         <div>
+//             <h2>{user.name}</h2>
+//             <p>Occupation:{user.job}</p>
+//             <p>Sex:{user.sex}</p>
+//         </div>
+//     ))}
+//     </>
+// )
+
+// }
+
+// export default Useeffect
+
+//********************************************** */
+//we are using 2 use effects
+// Here we created two useEffect hooks. In the first one, we used the dot then syntax to get all users from our API. 
+// This is necessary to determine the number of users.
+
+// We then created another useEffect hook to get a user based on the id. This useEffect will refetch the data whenever
+//  the id changes. To ensure this, we passed the id in the dependency list.
+
+// Next, we created functions to update the value of our id whenever the buttons are clicked. Once the value of the
+//  id changes, the useEffect will run again and refetch the data.
+
+// We can also refetch the data when some conditions change. We’ll show this in the code below.
+
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+function Useeffect() {
+  const [userIDs, setUserIDs] = useState([]);
+  const [user, setUser] = useState({});
+  const [currentID, setCurrentID] = useState(1);
+
+  const endPoint =
+    "https://my-json-server.typicode.com/ifeanyidike/userdata/users";
+
+  useEffect(() => {
+    axios.get(endPoint).then(({ data }) => setUserIDs(data));
+  }, []);
+
+  useEffect(() => {
+    const fetchUserIDs = async () => {
+      const { data } = await axios.get(`${endPoint}/${currentID}`);
+      setUser(data);
+    };
+
+    fetchUserIDs();
+}, [currentID]);
+
+  const moveToNextUser = () => {
+    setCurrentID((prevId) => (prevId < userIDs.length ? prevId + 1 : prevId));
+  };
+  const moveToPrevUser = () => {
+    setCurrentID((prevId) => (prevId === 1 ? prevId : prevId - 1));
+  };
+  return (
+    <div>
+        <div>
+          <h2>{user.name}</h2>
+          <p>Occupation: {user.job}</p>
+          <p>Sex: {user.sex}</p>
+        </div>
+  
+      <button onClick={moveToPrevUser}>Prev</button>
+      <button onClick={moveToNextUser}>Next</button>
+    </div>
+  );
 }
+
 export default Useeffect;
 
 
 
-
-
-
-
+// If we want, we can even clean up or cancel the promise-based token in Axios, we could do that with 
+// the clean-up method discussed above.
 
 // When we want to perform an action once, especially when the app loads or mounts, we can use useEffect to do it.
 // we are triggering a fetch() GET request when the app is mounted, using an empty array as useEffect dependency.
