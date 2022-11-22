@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,48 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  display: grid;
+  place-items: center;
+}
+
+.todos {
+  margin-top: 10px;
+}
+
+.todoItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input {
+  display: flex;
+}
+
+.todoItem p {
+  margin-right: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.todoItem span {
+  cursor: pointer;
+}
+
+.todoItem span:hover {
+  color: red;
+}
+
+.todoItem span:first-of-type {
+  margin-right: 8px;
+}
+
+.strikethrough {
+  text-decoration: line-through;
 }
